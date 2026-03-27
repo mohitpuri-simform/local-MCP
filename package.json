@@ -1,0 +1,31 @@
+{
+  "name": "weather-mcp-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Express + TypeScript backend with an MCP weather tool",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "dev:mcp": "tsx watch src/mcpServer.ts",
+    "dev:expense-mcp": "tsx watch src/expenseMcpServer.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "start:mcp": "node dist/mcpServer.js",
+    "start:expense-mcp": "node dist/expenseMcpServer.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.7.4",
+    "better-sqlite3": "^12.8.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  }
+}

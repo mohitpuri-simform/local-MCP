@@ -1,41 +1,73 @@
-MCP Servers in this project
+# Backend MCP Servers
 
-1) weather-mcp-server
-  - Type: stdio
-  - Command: node
-  - Args: backend/dist/mcpServer.js
-  - Purpose: Provides a simple weather backend used by the project (dummy weather generator).
+## 1) Install and build after cloning
 
-2) filesystem
-  - Type: stdio
-  - Command: node
-  - Args: /home/mohitpuri.goswami@simform.dom/Desktop/khel khel mein/mcp/backend/dist/mcpFileSystem.js --allow "/home/mohitpuri.goswami@simform.dom/Desktop/khel khel mein/mcp"
-  - Purpose: Filesystem MCP exposing operations: read_file, create_file, update_file, delete_file, create_directory, list_directory, delete_directory, move_path, rename_path, search_files.
-  - Notes: This server requires at least one allowed root (use `--allow` or `FS_ALLOWED_ROOTS` environment variable).
+```bash
+cd backend
+npm install
+npm run build
+```
 
-3) io.github.github/github-mcp-server
-  - Type: stdio
-  - Command: npx
-  - Args: -y @modelcontextprotocol/server-github
-  - Purpose: GitHub integration MCP server. Requires a GitHub token provided via input `token` (GITHUB_PERSONAL_ACCESS_TOKEN).
-  - Config: gallery=https://api.mcp.github.com, version=0.33.0
+## 2) Run MCP servers
 
-4) expense-mcp-server
-  - Type: stdio
-  - Command: node
-  - Args: backend/dist/mcpExpense.js
-  - Purpose: Expense tracking MCP exposing tools: create_expense, create_expense_from_text, get_expense, list_expenses, update_expense, delete_expense.
+Weather MCP:
 
-How to run (examples)
+```bash
+npm run start:mcp
+```
 
-# Run the filesystem server with an allowed root
-node backend/dist/mcpFileSystem.js --allow "/absolute/path/to/project"
+Expense MCP:
 
-# Run the expense server
-node backend/dist/mcpExpense.js
+```bash
+npm run start:expense-mcp
+```
 
-# Use Copilot CLI / MCP config
-The servers are listed in .vscode/mcp.json; configure your Copilot CLI or MCP manager to run the listed commands as stdio servers.
+Filesystem MCP:
 
-Security note
-- The filesystem server enforces allowed roots and will refuse to start without at least one configured allowed directory. Do not pass untrusted roots.
+```bash
+npm run start:fs-mcp
+```
+
+The filesystem server needs at least one allowed root. This repo sets it via `--allow ..` in the npm script, which points to the repository root when run from `backend`.
+
+## 3) Development mode (watch)
+
+```bash
+npm run dev:mcp
+npm run dev:expense-mcp
+npm run dev:fs-mcp
+```
+
+## Server summary
+
+1. weather-mcp-server
+
+- Type: stdio
+- Entry: dist/mcpServer.js
+- Tool: get_weather
+
+2. expense-mcp-server
+
+- Type: stdio
+- Entry: dist/mcpExpense.js
+- Tools: create_expense, create_expense_from_text, get_expense, list_expenses, update_expense, delete_expense
+
+3. filesystem-mcp-server
+
+- Type: stdio
+- Entry: dist/mcpFileSystem.js
+- Tools: read_file, create_file, update_file, delete_file, create_directory, list_directory, delete_directory, move_path, rename_path, search_files
+
+4. io.github.github/github-mcp-server
+
+- Type: stdio
+- Command: npx -y @modelcontextprotocol/server-github
+- Requirement: set GITHUB_PERSONAL_ACCESS_TOKEN
+
+## Important for cloned repos
+
+Check .vscode/mcp.json and replace machine-specific absolute paths with your local clone path.
+
+## Security note
+
+The filesystem server blocks access outside allowed roots. Use narrow trusted paths only.

@@ -7,11 +7,13 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "dev:mcp": "tsx watch src/mcpServer.ts",
-    "dev:expense-mcp": "tsx watch src/expenseMcpServer.ts",
+    "dev:expense-mcp": "tsx watch src/mcpExpense.ts",
+    "dev:fs-mcp": "tsx watch src/mcpFileSystem.ts --allow ..",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "start:mcp": "node dist/mcpServer.js",
-    "start:expense-mcp": "node dist/expenseMcpServer.js"
+    "start:expense-mcp": "node dist/mcpExpense.js",
+    "start:fs-mcp": "node dist/mcpFileSystem.js --allow .."
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
